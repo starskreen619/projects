@@ -8,28 +8,32 @@ class Ship:
         self.health = health
         self.size = 1
 
-    # def afloat(self)
 
-
-# Ship1 = Ship(board_display[2, 2], 1)
-# Ship2 = Ship([3, 3], 1)
-# Ship3 = Ship([1, 1], 1)
-
-# row_size = abs(eval(input('Enter row size: ')))
-# col_size = abs(eval(input('Enter colunm size: ')))
-row_size = 5  # number of rows
-col_size = 5  # number of columns
-num_ships = 3
+row_size = abs(eval(input('Enter row size: ')))
+col_size = abs(eval(input('Enter colunm size: ')))
+# row_size = 5  # number of rows test
+# col_size = 5  # number of columns test
 num_guesses = 5
 
-ship_list = []
-board = [[0] * col_size for x in range(row_size)]
-# board_display = [{"O": True} * col_size for x in range(row_size)]
-board_display = [["O"] * col_size for x in range(row_size)]
+ship1x = randint(1, row_size)
+ship1y = randint(1, col_size)
+Ship1 = Ship([ship1x, ship1y], 1)
 
-Ship1 = Ship(board_display[2, 2], 1)
-Ship2 = Ship([3, 3], 1)
-Ship3 = Ship([1, 1], 1)
+ship2x = randint(1, row_size)
+ship2y = randint(1, col_size)
+Ship2 = Ship([ship2x, ship2y], 1)
+
+ship3x = randint(1, row_size)
+ship3y = randint(1, col_size)
+Ship3 = Ship([ship3x, ship3y], 1)
+
+print(ship1x, ship1y)  # test print
+# print(ship2x, ship2y)   test print
+# print(ship3x, ship3y)   test print
+
+ship_list = []
+# board = [[0] * col_size for x in range(row_size)]
+board_display = [["O"] * col_size for x in range(row_size)]
 
 
 def print_board(board_array):
@@ -38,46 +42,36 @@ def print_board(board_array):
         print(str(r + 1) + " " + " ".join(str(c) for c in board_array[r]))
 
 
-# for turn in range(num_guesses):
-#     print("Turn:", turn + 1, "of", num_guesses)
-#     print("Ships left:", len(ship_list))
-#     print()
-
-#     guess_coords = {}
-#     while True:
-#         guess_coords['row'] = get_row()
-#         guess_coords['col'] = get_col()
-#         if board_display[guess_coords['row']][guess_coords['col']] == 'X' or \
-#                 board_display[guess_coords['row']][guess_coords['col']] == '*':
-#             print("\nYou guessed that one already.")
-#         else:
-#             break
-
-
-def drop_bomb():
-
-    board_display[guess1-1][guess2-1] = "X"
-    # ship_hit = False
-    # for ship in ship_list:
-    #     if ship.contains(guess_coords):
-    #         print("Hit!")
-    #         ship_hit = True
-    #         board_display[guess_coords['row']][guess_coords['col']] = 'X'
-    #         if ship.destroyed():
-    #             print("Ship Destroyed!")
-    #             ship_list.remove(ship)
-    #         break
-    # if not ship_hit:
-    #     board_display[guess_coords['row']][guess_coords['col']] = '*'
-    #     print("You missed!")
-
-    # print_board(board_display)
-
-    # if not ship_list:
+def drop_bomb(guess1, guess2):
+    global num_ships
+    num_ships = 3
+    while num_ships > 0:
+        if guess1 == ship1x and guess2 == ship1y:
+            print("Hit!!! Ship 1 Sunked!!!")
+            board_display[guess1-1][guess2-1] = "X"
+            num_ships -= 1
+            # print(f"You have {num_ships} ships left!")
+        elif guess1 == ship2x and guess2 == ship2y:
+            print("Hit!!! Ship 2 Sunked!!!")
+            board_display[guess1-1][guess2-1] = "X"
+            num_ships -= 1
+            # print(f"You have {num_ships} ships left!")
+        elif guess1 == ship3x and guess2 == ship3y:
+            print("Hit!!! Ship 3 Sunked!!!")
+            board_display[guess1-1][guess2-1] = "X"
+            num_ships -= 1
+            # print(f"You have {num_ships} ships left!")
+        else:
+            print("\nMiss!!!")
+            board_display[guess1-1][guess2-1] = "*"
+            break
 
 
-while True:
+while num_guesses > 0:
     guess1 = int(input("Row Guess: "))
     guess2 = int(input("Column Guess: "))
-    drop_bomb()
+    drop_bomb(guess1, guess2)
     print_board(board_display)
+    num_guesses -= 1
+else:
+    print("You lose! Thank you for playing")
