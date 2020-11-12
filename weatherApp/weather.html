@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherApp</title>
+    <link rel="shortcut icon" href="weather.ico" type "image/x-icon">
+    <style>
+      .card {
+        border: solid black 1px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Weather forcast for your area</h1>
+    <hr />
+    <div>
+      <input
+        id="username"
+        class="city"
+        name="city"
+        placeholder="City"
+        type="text"
+      />
+      <input
+        id="Zip Code"
+        class="Zip Code"
+        name="Zip Code"
+        placeholder="Zip Code"
+        type="text"
+      />
+      <button>Submit</button>
+    </div>
+    <script src="ajax.js"></script>
+    <script>
+      ajax("https://www.metaweather.com/api/location/44418/2013/4/27/", (r) => {
+        let forcast = JSON.parse(r);
+        let ul = document.querySelector("ul");
+        people.results.forEach((forcast) => {
+          let l = document.createElement("div");
+          l.className("card");
+          document.body.append(l);
+          let img = document.createElement("img");
+          img.src = forcast.picture.thumbnail;
+          l.append(`${forcast.name.last}, ${forcast.name.first}`);
+          l.append(img);
+          console.log(state);
+        });
+      });
+    </script>
+  </body>
+</html>
